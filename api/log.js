@@ -213,17 +213,15 @@ function setSecurityHeaders(res) {
 
 // 🎯 Main Handler Function
 export default async function handler(req, res) {
-
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  setSecurityHeaders(res);
   try {
     // 🛡️ Set security headers
-    setSecurityHeaders(res);
+
     
     // ✅ Handle preflight request
     if (req.method === "OPTIONS") {
-      return res.status(200).end();
+      setSecurityHeaders(res);
+      return res.status(204).end();
     }
     
     // 🔍 Extract visitor information
